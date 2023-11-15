@@ -13,4 +13,7 @@ alias icat="kitten icat"
 alias rm='rm -I'
 alias ktd='kitten transfer --confirm-paths --transmit-deltas --direction=download'
 alias ktu='kitten transfer --confirm-paths --transmit-deltas --direction=upload'
+alias se=sudoedit
+alias sv='sudo vim'
+alias v=vim
 alias yt-dlp='yt-dlp --downloader aria2c'
