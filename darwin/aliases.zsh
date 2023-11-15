@@ -1,4 +1,5 @@
 alias cat='bat -p'
+alias cpac="grep antizapret $HOME/pac | tr -d '\n' | clipcopy"
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffplay='ffplay -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
