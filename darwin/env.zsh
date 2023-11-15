@@ -1,4 +1,5 @@
-export MONO_GAC_PREFIX="/opt/homebrew"
 export EDITOR=nvim
-export RESEND_API_KEY=$(security find-generic-password -a RESEND_API_KEY -s resend.com -w)
 export GPG_TTY=$(tty)
+export LC_ALL=ru_RU.UTF-8
+export MONO_GAC_PREFIX="/opt/homebrew"
+export RESEND_API_KEY=$(security find-generic-password -a RESEND_API_KEY -s resend.com -w)
