@@ -4,14 +4,10 @@ function morse2beep
 }
 function upd
 {
-	# setopt local_options
-	echo "Updating..."
-	# setopt -x
+	setopt xtrace
 	paru
-	sudo findpkg -u
-	tldr -u
-	# setopt +x
-	echo "Updated."
+	sudo findpkg --update
+	tldr --update
 }
 function sup
 {
