@@ -165,3 +165,24 @@ function to_jxl {
   else fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl
   fi
 }
+function lsrf {
+  setopt -x
+  local open=false
+  while getopts 'd:oa:' opt
+  do
+    case "$opt" in
+      d) local depth=$OPTARG;;
+      o) open=true;;
+      a) local app=$OPTARG;;
+      \?) return;;
+    esac
+  done
+  shift $((OPTIND - 1))
+
+  result=$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f | sort -R | head -1)
+
+  case "$open" in
+    false) echo "$result";;
+    true) open ${(z)app:+-a $app} "$result";;
+  esac
+}
