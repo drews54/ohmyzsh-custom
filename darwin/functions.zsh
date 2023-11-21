@@ -166,7 +166,6 @@ function to_jxl {
   fi
 }
 function lsrf {
-  setopt -x
   local open=false
   while getopts 'd:oa:' opt
   do
@@ -183,6 +182,6 @@ function lsrf {
 
   case "$open" in
     false) echo "$result";;
-    true) open ${(z)app:+-a $app} "$result";;
+    true) setopt -x; open ${(z)app:+-a $app} "$result";;
   esac
 }
