@@ -8,6 +8,7 @@ function upd
 	paru
 	sudo findpkg --update
 	tldr --update
+	sudo updatedb
 }
 function sup
 {
