@@ -209,7 +209,7 @@ function lsrf {
     wait
     if [[ -v interactive ]]
     then if read -qs "?Press Y to stop, any other key to continue"
-         then print "\nOperation stopped." && break
+         then print "\nOperation stopped." && return
          else print
          fi
     fi
