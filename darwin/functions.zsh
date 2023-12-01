@@ -166,22 +166,49 @@ function to_jxl {
   fi
 }
 function lsrf {
-  local open=false
-  while getopts 'd:oa:' opt
+  while getopts '1oia:d:' opt
   do
     case "$opt" in
-      d) local depth=$OPTARG;;
-      o) open=true;;
-      a) local app=$OPTARG;;
+      1) typeset first_result=true;;
+      o) typeset open=true;;
+      i) typeset interactive=true;;
+      a) typeset app=$OPTARG;;
+      d) typeset depth=$OPTARG;;
       \?) return;;
     esac
   done
   shift $((OPTIND - 1))
 
-  result=$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f | sort -R | head -1)
+  result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f | sort -R)}")
 
-  case "$open" in
-    false) echo "$result";;
-    true) setopt -x; open ${(z)app:+-a $app} "$result";;
-  esac
+  if [[ -v first_result ]]
+  then result=$result[1]
+  fi
+
+  if [[ ! -v open ]]
+  then
+    print -l $result
+    return
+  fi
+
+  if [[ ! ( -v interactive || -v first_result ) ]]
+  then if read -qs "?This will open all found files in sequence! Press Y to continue, any other key to abort"
+       then print
+       else print "\nOperation aborted." && return
+       fi
+  fi
+
+  for i in $result
+  do
+    print "Opening '$i' using ${app:-default app}."
+    open -W ${(z)app:+-a $app} $i
+    wait
+    if [[ -v interactive ]]
+    then if read -qs "?Press Y to stop, any other key to continue"
+         then print "\nOperation stopped." && break
+         else print
+         fi
+    fi
+  done
+  print "Files list exhausted."
 }
