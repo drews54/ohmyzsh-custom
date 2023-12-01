@@ -21,6 +21,7 @@ function is_hvc1 {
   fi
 }
 function to_hvc1 {
+  typeset opt
   local force=false
   local debug=false
   local encoder=x265
@@ -129,6 +130,7 @@ function reverse_args {
   printf '\n'
 }
 function to_heic {
+  typeset opt
   local remove=true
   while getopts 'fn' opt
   do
@@ -146,6 +148,7 @@ function to_heic {
   fi
 }
 function to_jxl {
+  typeset opt
   local remove=true
   while getopts 'fn' opt
   do
@@ -166,6 +169,7 @@ function to_jxl {
   fi
 }
 function lsrf {
+  typeset opt
   while getopts '1oia:d:' opt
   do
     case "$opt" in
