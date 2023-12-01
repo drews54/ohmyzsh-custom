@@ -22,39 +22,38 @@ function is_hvc1 {
 }
 function to_hvc1 {
   typeset opt
-  local force=false
-  local debug=false
   local encoder=x265
-  local copy_audio=true
 
   while getopts 'fdc:a' opt
   do
     case "$opt" in
-      f) force=true;;
-      d) debug=true;;
+      f) typeset force=true;;
+      d) typeset debug=true;;
       c)
         if [[ -n "$OPTARG" ]]
         then
           case "$OPTARG" in
             x265|vtb) encoder="$OPTARG";;
             *) echo "$OPTARG is not a supported encoder" >&2
-               if [[ $debug == true ]]; then return 1
-               else echo "Using default encoder $encoder"; fi;;
+               if [[ -v debug ]]
+                 then return 1
+                 else echo "Using fallback encoder: $encoder"
+               fi;;
           esac
         fi;;
-      a) copy_audio=false;;
-      \?) if [[ $debug == true ]]; then return 1; fi;;
+      a) typeset no_copy_audio=true;;
+      \?) [[ -v debug ]] && return 1;;
     esac
   done
 
   shift $((OPTIND - 1))
 
-  local ffmpeg_params
+  typeset ffmpeg_params
   if   [[ $encoder == x265 ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -preset slow -tag:v hvc1 -map_metadata 0 "%s"'
   elif [[ $encoder == vtb ]];  then ffmpeg_params='-hide_banner -i "%s" hevc_videotoolbox -q:v 55 -tag:v hvc1 -map_metadata 0 "%s"'
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
   fi
-  [[ $copy_audio == true ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
+  [[ ! -v copy_audio ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
 
   for video in "$@"
   do
@@ -70,7 +69,7 @@ function to_hvc1 {
     then
       touch -r "$video" "${video%.*}.hvc1.mp4"
       local result="Converted $video to hvc1 format"
-      if [[ $force == true ]]
+      if [[ -v force ]]
       then
         rm -f "$video" && \
         mv -f "${video%.*}.hvc1.mp4" "${video%.*}.mp4" && \
@@ -83,13 +82,15 @@ function to_hvc1 {
         result="${result}, failed renaming the original."
       fi
       if [[ $? == 0 ]]
-      then echo $result
-      else echo $result >&2
-        if [[ $debug == true ]]; then return $?; fi
+        then echo $result
+        else echo $result >&2; [[ -v debug ]] && return $?
       fi
     else
       echo "Failed to convert $video to hvc1 format, temporary file ${video%.*}.hvc1.mp4 might remain." >&2
-      if [[ $debug == true ]]; then return $?; else echo "Error code: $?" >&2; fi
+      if [[ -v debug ]]
+        then return $?
+        else echo "Error code: $?" >&2
+      fi
     fi
   done
 }
