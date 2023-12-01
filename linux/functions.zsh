@@ -27,6 +27,7 @@ function sup
 	fi
 }
 function is_hvc1 {
+  typeset opt
   local quiet=false
 
   while getopts 'q' opt
@@ -51,6 +52,7 @@ function is_hvc1 {
   fi
 }
 function to_hvc1 {
+  typeset opt
   local force=false
   local debug=false
   local encoder=x265
@@ -122,6 +124,7 @@ function to_hvc1 {
   done
 }
 function to_jxl {
+  typeset opt
   local remove=true
   while getopts 'fn' opt
   do
