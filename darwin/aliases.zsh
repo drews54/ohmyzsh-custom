@@ -4,6 +4,7 @@ alias ffmpeg='ffmpeg -hide_banner'
 alias ffplay='ffplay -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 alias gdl=gallery-dl
+alias gdl.='gdl -d.'
 alias gdlb='gdl --cookies-from-browser brave'
 alias gdls='gdl --cookies-from-browser safari'
 alias icat="kitten icat"
