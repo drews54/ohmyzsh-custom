@@ -206,7 +206,13 @@ function lsrf {
   for i in $result
   do
     print "Opening '$i' using ${app:-default app}."
-    open -W ${(z)app:+-a $app} $i
+    if [[ -v first_result ]]
+    then
+      open ${(z)app:+-a $app} $i
+      return
+    else
+      open -W ${(z)app:+-a $app} $i
+    fi
     wait
     if [[ -v interactive ]]
     then if read -qs "?Press Y to stop, any other key to continue"
