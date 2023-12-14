@@ -15,6 +15,8 @@ function sup
 	echo "Hello again!"
 	echo "\nUptime stats:"
 	uptime
+	echo "\nFailed systemd units:"
+	systemctl --failed
 	echo "\nLast 10 logins:"
 	last -n 10
 	if read -qs "?Update packages? (y/N): "
