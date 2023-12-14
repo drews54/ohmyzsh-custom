@@ -17,12 +17,13 @@ function sup
 	uptime
 	echo "\nLast 10 logins:"
 	last -n 10
-	if read -qs "reply?Update packages? (y/N): "
+	if read -qs "?Update packages? (y/N): "
 	then
-		echo $reply
+		echo $REPLY
 		upd
+		echo "Update finished."
 	else
-		echo $reply
+		echo $REPLY
 		echo "Not updating."
 	fi
 }
