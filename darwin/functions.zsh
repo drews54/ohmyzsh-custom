@@ -206,10 +206,10 @@ function lsrf {
   for i in $result
   do
     print "Opening '$i' using ${app:-default app}."
-    if [[ -v first_result ]]
+    if [[ -v first_result || -v interactive ]]
     then
       open ${(z)app:+-a $app} $i
-      return
+      [[ -v first_result ]] && return
     else
       open -W ${(z)app:+-a $app} $i
     fi
