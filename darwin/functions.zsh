@@ -1,22 +1,24 @@
 function is_hvc1 {
-  local quiet=false
+  typeset opt
+
   while getopts 'q' opt
   do
     case "$opt" in
-      q) quiet=true
+      q) typeset quiet=true
       ;;
       \?) return 1
       ;;
     esac
   done
+
   shift $((OPTIND - 1))
 
   if [[ $(ffprobe -v error -select_streams v:0 -show_entries stream=codec_tag_string -of default=noprint_wrappers=1:nokey=1 "$@" 2>&1) == hvc1 ]]
   then
-    if [[ $quiet == false ]]; then echo "$@ is in hvc1 format"; fi
+    if [[ -v quiet ]]; then echo "$@ is in hvc1 format"; fi
     return 0
   else
-    if [[ $quiet == false ]]; then echo "$@ is not in hvc1 format"; fi
+    if [[ -v quiet ]]; then echo "$@ is not in hvc1 format"; fi
     return 1
   fi
 }
@@ -29,18 +31,17 @@ function to_hvc1 {
     case "$opt" in
       f) typeset force=true;;
       d) typeset debug=true;;
-      c)
-        if [[ -n "$OPTARG" ]]
-        then
-          case "$OPTARG" in
-            x265|vtb) encoder="$OPTARG";;
-            *) echo "$OPTARG is not a supported encoder" >&2
-               if [[ -v debug ]]
-                 then return 1
-                 else echo "Using fallback encoder: $encoder"
-               fi;;
-          esac
-        fi;;
+      c) if [[ -n "$OPTARG" ]]
+         then
+           case "$OPTARG" in
+             x265|vtb) encoder="$OPTARG";;
+             *) echo "$OPTARG is not a supported encoder" >&2
+                if [[ -v debug ]]
+                  then return 1
+                  else echo "Using default encoder $encoder"
+                fi;;
+           esac
+         fi;;
       a) typeset no_copy_audio=true;;
       \?) [[ -v debug ]] && return 1;;
     esac
@@ -48,7 +49,7 @@ function to_hvc1 {
 
   shift $((OPTIND - 1))
 
-  typeset ffmpeg_params
+  local ffmpeg_params
   if   [[ $encoder == x265 ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -preset slow -tag:v hvc1 -map_metadata 0 "%s"'
   elif [[ $encoder == vtb ]];  then ffmpeg_params='-hide_banner -i "%s" hevc_videotoolbox -q:v 55 -tag:v hvc1 -map_metadata 0 "%s"'
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
@@ -150,12 +151,11 @@ function to_heic {
 }
 function to_jxl {
   typeset opt
-  local remove=true
-  while getopts 'fn' opt
+
+  while getopts 'f' opt
   do
-    case "$opt" in
-      f) remove=true;;
-      n) remove=false;;
+    case $opt in
+      f) typeset remove=true;;
       \?) return;;
     esac
   done
@@ -164,7 +164,7 @@ function to_jxl {
   # Note: jxl animation is not natively supported by Apple, so -e gif -e png are excluded.
   # Also gif and png are potentially lossy when transcoded, more research is needed.
   # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pgx .
-  if [[ $remove == true ]]
+  if [[ -v remove ]]
   then fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl \; -x rm
   else fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl
   fi
