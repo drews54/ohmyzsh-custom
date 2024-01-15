@@ -128,7 +128,7 @@ function to_hvc1 {
 }
 function to_jxl {
   typeset opt
-  while getopts 'fn' opt
+  while getopts 'f' opt
   do
     case $opt in
       f) typeset remove=true;;
