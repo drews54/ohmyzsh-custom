@@ -196,12 +196,12 @@ function lsrf {
     return
   fi
 
-  if [[ ! ( -v interactive || -v first_result ) ]]
-  then if read -qs "?This will open all found files in sequence! Press Y to continue, any other key to abort"
-       then print
-       else print "\nOperation aborted." && return
-       fi
-  fi
+  # if [[ ! ( -v interactive || -v first_result ) ]]
+  # then if read -qs "?This will open all found files in sequence! Press Y to continue, any other key to abort"
+  #      then print
+  #      else print "\nOperation aborted." && return
+  #      fi
+  # fi
 
   for i in $result
   do
