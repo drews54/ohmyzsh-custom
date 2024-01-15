@@ -54,7 +54,7 @@ function to_hvc1 {
   elif [[ $encoder == vtb ]];  then ffmpeg_params='-hide_banner -i "%s" hevc_videotoolbox -q:v 55 -tag:v hvc1 -map_metadata 0 "%s"'
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
   fi
-  [[ ! -v copy_audio ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
+  [[ ! -v no_copy_audio ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
 
   for video in "$@"
   do
