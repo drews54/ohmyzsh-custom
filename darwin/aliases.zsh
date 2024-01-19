@@ -17,6 +17,7 @@ alias ktd='kitten transfer --confirm-paths --transmit-deltas --direction=downloa
 alias ktu='kitten transfer --confirm-paths --transmit-deltas --direction=upload'
 alias ls=lsd
 alias rm='rm -I'
+alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias watch=viddy
 alias yt-dlp='yt-dlp --downloader aria2c'
 alias yt-dlp_sb='yt-dlp --downloader aria2c --legacy-server-connect'
