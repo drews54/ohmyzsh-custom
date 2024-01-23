@@ -180,7 +180,7 @@ function lsrf {
       a) typeset app=$OPTARG;;
       d) typeset depth=$OPTARG;;
       t) typeset recent=true;;
-      \?) return;;
+      \?) print "Unknown option: -$opt" && return;;
     esac
   done
   shift $((OPTIND - 1))
