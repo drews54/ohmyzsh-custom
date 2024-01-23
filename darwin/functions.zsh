@@ -171,11 +171,11 @@ function to_jxl {
 }
 function lsrf {
   typeset opt
-  while getopts '1oia:d:t' opt
+  while getopts '1lia:d:t' opt
   do
     case "$opt" in
       1) typeset first_result=true;;
-      o) typeset open=true;;
+      l) typeset list=true;;
       i) typeset interactive=true;;
       a) typeset app=$OPTARG;;
       d) typeset depth=$OPTARG;;
@@ -194,7 +194,7 @@ function lsrf {
   then result=$result[1]
   fi
 
-  if [[ ! -v open ]]
+  if [[ -v list ]]
   then
     print -l $result
     return
