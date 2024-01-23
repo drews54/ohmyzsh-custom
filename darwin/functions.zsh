@@ -171,7 +171,7 @@ function to_jxl {
 }
 function lsrf {
   typeset opt
-  while getopts '1lia:d:t' opt
+  while getopts '1lia:d:tw' opt
   do
     case "$opt" in
       1) typeset first_result=true;;
@@ -180,6 +180,7 @@ function lsrf {
       a) typeset app=$OPTARG;;
       d) typeset depth=$OPTARG;;
       t) typeset recent=true;;
+      w) typeset wait=true;;
       \?) print "Unknown option: -$opt" && return;;
     esac
   done
@@ -200,24 +201,20 @@ function lsrf {
     return
   fi
 
-  # if [[ ! ( -v interactive || -v first_result ) ]]
-  # then if read -qs "?This will open all found files in sequence! Press Y to continue, any other key to abort"
-  #      then print
-  #      else print "\nOperation aborted." && return
-  #      fi
-  # fi
+  if [[ ! ( -v interactive || -v first_result || -v wait ) ]]
+  then if read -qs "?This will open all found files at once! Press Y to continue, any other key to abort"
+       then print
+       else print "\nOperation aborted." && return
+       fi
+  fi
 
   for i in $result
   do
     print "Opening '$i' using ${app:-default app}."
-    if [[ -v first_result || -v interactive ]]
-    then
-      open ${(z)app:+-a $app} $i
-      [[ -v first_result ]] && return
-    else
-      open -W ${(z)app:+-a $app} $i
+    if [[ -v wait ]]
+    then open -W ${(z)app:+-a $app} $i && wait
+    else open ${(z)app:+-a $app} $i
     fi
-    wait
     if [[ -v interactive ]]
     then if read -qs "?Press Y to stop, any other key to continue"
          then print "\nOperation stopped." && return
