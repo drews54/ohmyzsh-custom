@@ -171,7 +171,7 @@ function to_jxl {
 }
 function lsrf {
   typeset opt
-  while getopts '1oia:d:' opt
+  while getopts '1oia:d:t' opt
   do
     case "$opt" in
       1) typeset first_result=true;;
@@ -179,12 +179,16 @@ function lsrf {
       i) typeset interactive=true;;
       a) typeset app=$OPTARG;;
       d) typeset depth=$OPTARG;;
+      t) typeset recent=true;;
       \?) return;;
     esac
   done
   shift $((OPTIND - 1))
 
-  result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f | sort -R)}")
+  if [[ -v recent ]]
+  then result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store -exec ls -t {} +)}")
+  else result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store | sort -R)}")
+  fi
 
   if [[ -v first_result ]]
   then result=$result[1]
