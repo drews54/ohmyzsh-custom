@@ -212,7 +212,10 @@ function lsrf {
   do
     print "Opening '$i' using ${app:-default app}."
     if [[ -v wait ]]
-    then open -W ${(z)app:+-a $app} $i && wait
+    then
+      setopt local_traps
+      trap 'print "\e[2K\rOperation stopped."; return' INT
+      open -W ${(z)app:+-a $app} $i && wait
     else open ${(z)app:+-a $app} $i
     fi
     if [[ -v interactive ]]
