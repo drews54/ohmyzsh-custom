@@ -150,24 +150,30 @@ function to_heic {
   fi
 }
 function to_jxl {
-  typeset opt
+  typeset opt cmd
 
-  while getopts 'f' opt
+  while getopts 'an' opt
   do
     case $opt in
-      f) typeset remove=true;;
+      a) typeset all_extensions=true;;
+      n) typeset no_remove=true;;
       \?) return;;
     esac
   done
   shift $((OPTIND - 1))
 
-  # Note: jxl animation is not natively supported by Apple, so -e gif -e png are excluded.
+  # Note: jxl animation is not natively supported by Apple, so -e gif -e png are excluded by default.
   # Also gif and png are potentially lossy when transcoded, more research is needed.
-  # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pgx .
-  if [[ -v remove ]]
-  then fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl \; -x rm
-  else fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl
+  # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pgx.
+  cmd="fd -e jpg -e jpeg "
+  if [[ -v all_extensions ]]
+  then cmd+="-e png -e apng -e gif -e jpeg -e exr -e ppm -e pfm -e pam -e pgx "
   fi
+  cmd+="--search-path=${@:-.} -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl "
+  if [[ ! -v no_remove ]]
+  then cmd+=" \; -x rm"
+  fi
+  eval $cmd
 }
 function lsrf {
   typeset opt
