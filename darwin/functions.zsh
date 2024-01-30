@@ -201,11 +201,16 @@ function lsrf {
     return
   fi
 
-  if [[ ! ( -v interactive || -v first_result || -v wait ) ]]
-  then if read -qs "?This will open all found files at once! Press Y to continue, any other key to abort"
-       then print
-       else print "\nOperation aborted." && return
-       fi
+  if [[ ! ( -v interactive || -v first_result ) ]]
+  then
+    print "Running in non-interactive mode. Use Ctrl+C to exit."
+    if [[ ! -v wait ]]
+    then
+      if read -qs "?This will open all found files at once! Press Y to continue, any other key to abort"
+      then print
+      else print "\nOperation aborted." && return
+      fi
+    fi
   fi
 
   for i in $result
@@ -225,5 +230,5 @@ function lsrf {
          fi
     fi
   done
-  print "Files list exhausted."
+  if [[ ! -v first_result ]]; then print "Files list exhausted."; fi
 }
