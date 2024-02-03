@@ -193,8 +193,8 @@ function lsrf {
   shift $((OPTIND - 1))
 
   if [[ -v recent ]]
-  then result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store -exec ls -t {} +)}")
-  else result=("${(f)$(find ${1:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store | sort -R)}")
+  then result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store -exec ls -t {} +)}")
+  else result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store | sort -R)}")
   fi
 
   if [[ -v first_result ]]
