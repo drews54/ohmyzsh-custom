@@ -152,11 +152,14 @@ function to_heic {
 function to_jxl {
   typeset opt cmd
 
-  while getopts 'an' opt
+  while getopts 'ane:qv' opt
   do
     case $opt in
       a) typeset all_extensions=true;;
       n) typeset no_remove=true;;
+      e) typeset extension=$OPTARG;;
+      q) typeset quiet=true;;
+      v) typeset verbose=true;;
       \?) return;;
     esac
   done
@@ -165,11 +168,23 @@ function to_jxl {
   # Note: jxl animation is not natively supported by Apple, so -e gif -e png are excluded by default.
   # Also gif and png are potentially lossy when transcoded, more research is needed.
   # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pgx.
-  cmd="fd -e jpg -e jpeg "
-  if [[ -v all_extensions ]]
-  then cmd+="-e png -e apng -e gif -e jpeg -e exr -e ppm -e pfm -e pam -e pgx "
+  cmd="fd "
+  if [[ -v extension ]]
+  then cmd+="-e $extension "
+  else cmd+="-e jpg -e jpeg "
   fi
-  cmd+="--search-path=${@:-.} -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl "
+  if [[ -v all_extensions ]]
+  then cmd+="-e jpg -e jpeg -e png -e apng -e gif -e exr -e ppm -e pfm -e pam -e pgx "
+  fi
+  cmd+="--search-path=${@:-.} "
+  if [[ -v quiet ]]
+  then cmd+="-x cjxl "
+  else cmd+="-x echo '{/} -> {/.}.jxl' \; -x cjxl "
+  fi
+  if [[ ! -v verbose ]]
+  then cmd+="--quiet "
+  fi
+  cmd+="--effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl "
   if [[ ! -v no_remove ]]
   then cmd+=" \; -x rm"
   fi
@@ -177,7 +192,7 @@ function to_jxl {
 }
 function lsrf {
   typeset opt
-  while getopts '1lia:d:tw' opt
+  while getopts '1lia:d:twe:qs:' opt
   do
     case "$opt" in
       1) typeset first_result=true;;
@@ -187,14 +202,17 @@ function lsrf {
       d) typeset depth=$OPTARG;;
       t) typeset recent=true;;
       w) typeset wait=true;;
-      \?) print "Unknown option: -$opt" && return;;
+      e) typeset extension=$OPTARG;;
+      q) typeset quiet=true;;
+      s) typeset search=$OPTARG;;
+      \?) return 1;;
     esac
   done
   shift $((OPTIND - 1))
 
   if [[ -v recent ]]
-  then result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store -exec ls -t {} +)}")
-  else result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ! -name .DS_Store | sort -R)}")
+  then result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ${(z)search:+-iname *$search*} ${(z)extension:+-iname *.$extension} ! -name .DS_Store -exec ls -t {} +)}")
+  else result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ${(z)search:+-iname *$search*} ${(z)extension:+-iname *.$extension} ! -name .DS_Store | sort -R)}")
   fi
 
   if [[ -v first_result ]]
@@ -209,8 +227,8 @@ function lsrf {
 
   if [[ ! ( -v interactive || -v first_result ) ]]
   then
-    print "Running in non-interactive mode. Use Ctrl+C to exit."
-    if [[ ! -v wait ]]
+    [[ ! -v quiet ]] && print "Running in non-interactive mode. Use Ctrl+C to exit."
+    if [[ ! ( -v wait || -v quiet ) ]]
     then
       if read -qs "?This will open all found files at once! Press Y to continue, any other key to abort"
       then print
@@ -221,20 +239,23 @@ function lsrf {
 
   for i in $result
   do
-    print "Opening '$i' using ${app:-default app}."
+    [[ ! -v quiet ]] && print "Opening '$i' using ${app:-default app}."
     if [[ -v wait ]]
     then
       setopt local_traps
-      trap 'print "\e[2K\rOperation stopped."; return' INT
-      open -W ${(z)app:+-a $app} $i && wait
+      if [[ -v quiet ]]
+      then trap 'return' INT
+      else trap 'print "\e[2K\rOperation stopped."; return' INT
+      fi
+      open -W ${(z)app:+-a $app} $i
     else open ${(z)app:+-a $app} $i
     fi
     if [[ -v interactive ]]
     then if read -qs "?Press Y to stop, any other key to continue"
-         then print "\nOperation stopped." && return
-         else print
+         then [[ ! -v quiet ]] && print "\nOperation stopped."; return
+         else [[ ! -v quiet ]] && print
          fi
     fi
   done
-  if [[ ! -v first_result ]]; then print "Files list exhausted."; fi
+  if [[ ! ( -v first_result || -v quiet ) ]]; then print "Files list exhausted."; fi
 }
