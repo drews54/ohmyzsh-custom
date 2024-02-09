@@ -1,0 +1,13 @@
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+PATH=$(printf "%s"\
+  "$HOME/.local/bin:"\
+  "$HOME/.cargo/bin:"\
+  "$HOME/go/bin:"\
+  "$(brew --prefix python)/libexec/bin:"\
+  "$(brew --prefix curl)/bin:"\
+  "$(brew --prefix openjdk)/bin:"\
+  "$PATH")
+CPPFLAGS=$(printf "%s"\
+  "-I/opt/homebrew/opt/openjdk/include "\
+  "$CPPFLAGS")
