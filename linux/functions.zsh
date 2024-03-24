@@ -35,10 +35,8 @@ function is_hvc1 {
   while getopts 'q' opt
   do
     case "$opt" in
-      q) typeset quiet=true
-      ;;
-      \?) return 1
-      ;;
+      q) typeset quiet=true;;
+      \?) return 1;;
     esac
   done
 
@@ -46,10 +44,10 @@ function is_hvc1 {
 
   if [[ $(ffprobe -v error -select_streams v:0 -show_entries stream=codec_tag_string -of default=noprint_wrappers=1:nokey=1 "$@" 2>&1) == hvc1 ]]
   then
-    if [[ -v quiet ]]; then echo "$@ is in hvc1 format"; fi
+    if [[ ! -v quiet ]]; then echo "$@ is in hvc1 format"; fi
     return 0
   else
-    if [[ -v quiet ]]; then echo "$@ is not in hvc1 format"; fi
+    if [[ ! -v quiet ]]; then echo "$@ is not in hvc1 format"; fi
     return 1
   fi
 }
