@@ -105,7 +105,6 @@ plugins=(
 # Hotfix for zsh-fast-syntax-highlighting freezing on man and whatis
 function whatis() { if [[ -v THEFD ]]; then :; else command whatis "$@"; fi; }
 
-FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent identities id_ed25519 id_aur id_linux id_router id_windows id_wordpress
 
@@ -137,10 +136,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# if type brew &>/dev/null; then
-#   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-#   compinit -u
-# fi
+# homebrew site-functions init
+FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
+
+# zsh-completions init
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 # pipx completions init
 autoload -U bashcompinit
