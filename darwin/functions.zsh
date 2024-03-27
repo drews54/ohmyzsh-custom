@@ -220,7 +220,7 @@ function lsrf {
 
   if [[ -v list ]]
   then
-    print -l $result
+    print -l ${result[@]}
     return
   fi
 
