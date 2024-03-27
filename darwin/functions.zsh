@@ -190,6 +190,7 @@ function to_jxl {
 }
 function lsrf {
   typeset opt
+  local -a result
   while getopts '1lia:d:twe:qs:' opt
   do
     case "$opt" in
