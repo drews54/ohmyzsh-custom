@@ -204,6 +204,7 @@ function lsrf {
       e) typeset extension=$OPTARG;;
       q) typeset quiet=true;;
       s) typeset search=$OPTARG;;
+      f) typeset filter=true;;
       \?) return 1;;
     esac
   done
@@ -212,6 +213,17 @@ function lsrf {
   if [[ -v recent ]]
   then result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ${(z)search:+-iname *$search*} ${(z)extension:+-iname *.$extension} ! -name .DS_Store -exec ls -t {} +)}")
   else result=("${(f)$(find ${@:-.} ${(z)depth:+-maxdepth $depth} -type f ${(z)search:+-iname *$search*} ${(z)extension:+-iname *.$extension} ! -name .DS_Store | sort -R)}")
+  fi
+
+  if [[ -v filter ]]
+  then
+    local -a output
+    for line in "${result[@]}"; do
+      if [[ $line == *<->-<->_p000* || $line != *<->-<->_p<->* ]]; then
+        output+=("$line")
+      fi
+    done
+    result=("${output[@]}")
   fi
 
   if [[ -v first_result ]]
