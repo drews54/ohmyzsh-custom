@@ -191,7 +191,7 @@ function to_jxl {
 function lsrf {
   typeset opt
   local -a result
-  while getopts '1lia:d:twe:qs:' opt
+  while getopts '1lia:d:twe:qs:f' opt
   do
     case "$opt" in
       1) typeset first_result=true;;
