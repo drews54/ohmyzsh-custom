@@ -13,11 +13,11 @@ function upd
 function sup
 {
 	echo "Hello again!"
-	echo "\nUptime stats:"
+	echo "Uptime stats:"
 	uptime
-	echo "\nFailed systemd units:"
+	echo "Failed systemd units:"
 	systemctl --failed
-	echo "\nLast 10 logins:"
+	echo "Last 10 logins:"
 	last -n 10
 	if read -qs "?Update packages? (y/N): "
 	then
