@@ -12,9 +12,11 @@ alias icat='kitten icat'
 alias kd='kitten diff'
 alias ktd='kitten transfer --confirm-paths --transmit-deltas --direction=download'
 alias ktu='kitten transfer --confirm-paths --transmit-deltas --direction=upload'
+alias ntfy-srv='ntfy publish server_notifications'
 alias rm='rm -I'
 alias se=sudoedit
 alias sv='sudo vim'
 alias v=vim
 alias watch=viddy
+alias webm_to_hvc1='to_hvc1 -fa *.webm && ntfy pub server_notifications Videos converted successfully'
 alias yt-dlp='yt-dlp --downloader aria2c'
