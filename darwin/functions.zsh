@@ -174,7 +174,7 @@ function to_jxl {
   if [[ -v all_extensions ]]
   then cmd+="-e jpg -e jpeg -e png -e apng -e gif -e exr -e ppm -e pfm -e pam -e pgx "
   fi
-  cmd+="--search-path=${@:-.} "
+  cmd+="--search-path='${@:-.}' "
   if [[ -v quiet ]]
   then cmd+="-x cjxl "
   else cmd+="-x echo '{/} -> {/.}.jxl' \; -x cjxl "
