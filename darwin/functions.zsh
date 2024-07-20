@@ -49,7 +49,7 @@ function to_hvc1 {
 
   local ffmpeg_params
   if   [[ $encoder == x265 ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -preset slow -tag:v hvc1 -map_metadata 0 "%s"'
-  elif [[ $encoder == vtb ]];  then ffmpeg_params='-hide_banner -i "%s" hevc_videotoolbox -q:v 55 -tag:v hvc1 -map_metadata 0 "%s"'
+  elif [[ $encoder == vtb ]];  then ffmpeg_params='-hide_banner -i "%s" -c:v hevc_videotoolbox -tag:v hvc1 -map_metadata 0 "%s"'
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
   fi
   [[ ! -v no_copy_audio ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
