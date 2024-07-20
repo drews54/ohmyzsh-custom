@@ -278,3 +278,7 @@ function yy {
   fi
   rm -f -- "$tmp"
 }
+function iperf3_server {
+  ssh server-public iperf3 -sD1 &&
+  iperf3 -c drews.pro
+}
