@@ -19,6 +19,13 @@ function sup
 	systemctl --failed
 	echo "Last 10 logins:"
 	last -n 10
+	if read -qs "?View btrfs stats? (y/N): "
+	then
+		echo $REPLY
+		sudo btrfs device stats /mnt/media
+	else
+		echo $REPLY
+	fi
 	if read -qs "?View Prime95 stats? (y/N): "
 	then
 		echo $REPLY
