@@ -80,14 +80,13 @@ plugins=(
 	common-aliases
 	docker
 	docker-compose
-	fd
 	fzf
+	gh
 	git
 	nmap
 	pip
 	python
 	qrcode
-	ripgrep
 	rsync
 	screen
 	sudo
