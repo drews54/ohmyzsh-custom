@@ -23,6 +23,7 @@ alias lspdfs='mdls -name kMDItemFSName -name kMDItemNumberOfPages *.pdf(n) | gre
 alias rm='rm -I'
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias tjd='to_jxl ~/Downloads'
+alias tjx='to_jxl ~/Export'
 alias watch=viddy
 alias yt-dlp='yt-dlp --downloader aria2c'
 alias yt-dlp_sb='yt-dlp --downloader aria2c --legacy-server-connect'
