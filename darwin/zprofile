@@ -8,6 +8,10 @@ PATH=$(printf "%s"\
   "$(brew --prefix curl)/bin:"\
   "$(brew --prefix openjdk)/bin:"\
   "$PATH")
+LDFLAGS=$(printf "%s"\
+  "-L/opt/homebrew/opt/curl/lib"\
+  "$LDFLAGS")
 CPPFLAGS=$(printf "%s"\
+  "-I/opt/homebrew/opt/curl/include"\
   "-I/opt/homebrew/opt/openjdk/include "\
   "$CPPFLAGS")
