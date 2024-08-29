@@ -127,4 +127,8 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+# pipx completions
+autoload -U compinit && compinit
+eval "$(register-python-argcomplete pipx)"
+
 fastfetch
