@@ -92,6 +92,7 @@ plugins=(
 	sudo
 	systemadmin
 	systemd
+	tailscale
 	timer
 	virtualenv
 	zoxide
