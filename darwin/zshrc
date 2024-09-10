@@ -94,6 +94,7 @@ plugins=(
   ssh
   sudo
   systemadmin
+  tailscale
   vscode
   web-search
   zoxide
