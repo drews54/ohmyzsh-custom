@@ -258,8 +258,8 @@ function lsrf {
       then trap 'return' INT
       else trap 'print "\e[2K\rOperation stopped."; return' INT
       fi
-      open -W ${(z)app:+-a $app} $i
-    else open ${(z)app:+-a $app} $i
+      open -W ${app:+-a} ${app:+$app} $i
+    else open ${app:+-a} ${app:+$app} $i
     fi
     if [[ -v interactive ]]
     then if read -qs "?Press Y to stop, any other key to continue"
