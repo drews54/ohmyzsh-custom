@@ -136,16 +136,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# homebrew site-functions init
-FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
-
 # zsh-completions init
 if type brew &>/dev/null; then
-  FPATH=$HOME/.zfunc:$(brew --prefix)/share/zsh-completions:$FPATH
-
-  autoload -Uz compinit
-  compinit
+  FPATH=$FPATH:$(brew --prefix)/share/zsh-completions
 fi
+fpath+=~/.zfunc
+source ~/git/GitHub/ani-cli/_ani-cli-zsh # Executes compinit
+# autoload -Uz compinit
+# compinit
 
 # pipx completions init
 autoload -U bashcompinit
@@ -153,6 +151,5 @@ bashcompinit
 eval "$(register-python-argcomplete pipx)"
 
 zstyle ':completion:*' menu select
-fpath+=~/.zfunc
 
 fastfetch
