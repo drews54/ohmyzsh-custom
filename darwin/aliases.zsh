@@ -1,6 +1,7 @@
 alias awg-private-sftp='sshpass -f ~/.ssh/awg-sftp.pwd sftp awg-private-sftp'
 alias awg-public-sftp='sshpass -f ~/.ssh/awg-sftp.pwd sftp awg-public-sftp'
 alias bubog='brew update && brew outdated --greedy'
+alias bugbcp='bugbc --prune=all'
 alias cat='bat -p'
 alias cpac="grep antizapret $HOME/pac | tr -d '\n' | clipcopy"
 alias ffmpeg='ffmpeg -hide_banner'
