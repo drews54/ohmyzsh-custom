@@ -141,7 +141,6 @@ if type brew &>/dev/null; then
   FPATH=$FPATH:$(brew --prefix)/share/zsh-completions
 fi
 fpath+=~/.zfunc
-source ~/git/GitHub/ani-cli/_ani-cli-zsh # Executes compinit
 # autoload -Uz compinit
 # compinit
 
