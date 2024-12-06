@@ -23,6 +23,7 @@ alias ktu='kitten transfer --confirm-paths --transmit-deltas --direction=upload'
 alias ls=lsd
 alias lspdf='mdls -name kMDItemFSName -name kMDItemNumberOfPages *.pdf(n) | cut -d= -f 2 | paste - -'
 alias lspdfs='mdls -name kMDItemFSName -name kMDItemNumberOfPages *.pdf(n) | grep NumberOfPages | cut -d" " -f3 | paste -s -d+ - | bc'
+alias mactop='sudo mactop'
 alias rm='rm -I'
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias tjd='to_jxl ~/Downloads'
