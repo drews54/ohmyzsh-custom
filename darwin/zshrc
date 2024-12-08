@@ -145,8 +145,6 @@ fpath+=~/.zfunc
 # compinit
 
 # pipx completions init
-autoload -U bashcompinit
-bashcompinit
 eval "$(register-python-argcomplete pipx)"
 
 zstyle ':completion:*' menu select
