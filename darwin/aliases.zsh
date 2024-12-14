@@ -1,5 +1,6 @@
 alias awg-private-sftp='sshpass -f ~/.ssh/awg-sftp.pwd sftp awg-private-sftp'
 alias awg-public-sftp='sshpass -f ~/.ssh/awg-sftp.pwd sftp awg-public-sftp'
+alias bml='borg mount ::$(borg list --short --last 1) ~/mount'
 alias bubog='brew update && brew outdated --greedy'
 alias bugbcp='bugbc --prune=all'
 alias cat='bat -p'
