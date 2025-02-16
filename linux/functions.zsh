@@ -157,11 +157,11 @@ function to_jxl {
   else fd -e jpg -e jpeg --search-path="${@:-.}" -x echo \; -x cjxl --effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl
   fi
 }
-function yy {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+function y {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
-  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    cd -- "$cwd"
+  if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    builtin cd -- "$cwd"
   fi
   rm -f -- "$tmp"
 }
