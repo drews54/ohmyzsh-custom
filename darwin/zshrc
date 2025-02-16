@@ -122,6 +122,4 @@ autoload -Uz compinit && compinit
 # pipx completions init
 eval "$(register-python-argcomplete pipx)"
 
-zstyle ':completion:*' menu select
-
 fastfetch
