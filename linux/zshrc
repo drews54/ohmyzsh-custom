@@ -103,20 +103,6 @@ plugins=(
 
 
 # User configuration
-#zstyle :omz:plugins:ssh-agent agent-forwarding yes
-#zstyle :omz:plugins:ssh-agent identities id_ed25519 id_aur id_linux id_router id_windows id_wordpress
-
-# Change editor if connected via ssh
-#if [[ -n $SSH_CONNECTION ]]; then
-#	export EDITOR=nvim
-#else
-#	export EDITOR=vim
-#fi
-
-ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-if [[ ! -d $ZSH_CACHE_DIR ]]; then
-	mkdir $ZSH_CACHE_DIR
-fi
 
 # GPG Agent setup
 export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye
