@@ -19,10 +19,10 @@ function sup
 	systemctl --failed
 	echo "Last 10 logins:"
 	last -n 10
-	if read -qs "?View btrfs stats? (y/N): "
+	if read -qs "?View bcachefs stats? (y/N): "
 	then
 		echo $REPLY
-		sudo btrfs device stats /mnt/media
+		sudo bcachefs fs usage -h
 	else
 		echo $REPLY
 	fi
