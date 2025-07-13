@@ -18,6 +18,13 @@ function sup
 	uptime
 	echo "Failed systemd units:"
 	systemctl --failed
+	if read -qs "?Reset failed units? (y/N): "
+	then
+		echo $REPLY
+		sudo systemctl reset-failed
+	else
+		echo $REPLY
+	fi
 	echo "Last 10 logins:"
 	last -n 10
 	if read -qs "?View bcachefs stats? (y/N): "
