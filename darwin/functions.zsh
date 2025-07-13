@@ -163,9 +163,9 @@ function to_jxl {
   done
   shift $((OPTIND - 1))
 
-  # Note: jxl animation is not natively supported by Apple, so -e gif -e png are excluded by default.
-  # Also gif and png are potentially lossy when transcoded, more research is needed.
-  # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pgx.
+  # Note: jxl animation is not natively supported by Apple, so -e png -e apng -e gif are excluded by default.
+  # Also png and gif are potentially lossy when transcoded, more research is needed.
+  # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pam -e pgx.
   cmd="fd "
   if [[ -v extension ]]
   then cmd+="-e $extension "
