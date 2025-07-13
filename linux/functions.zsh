@@ -8,6 +8,7 @@ function upd
 	paru
 	sudo findpkg --update
 	tldr --update
+	uv tool upgrade --all
 	sudo updatedb
 }
 function sup
