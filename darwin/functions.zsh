@@ -177,15 +177,15 @@ function to_jxl {
   fi
   cmd+="--search-path='${@:-.}' "
   if [[ -v quiet ]]
-  then cmd+="-x cjxl "
-  else cmd+="-x echo '{/} -> {/.}.jxl' \; -x cjxl "
+    then cmd+="-x cjxl "
+    else cmd+="-x echo '{/} -> {/.}.jxl' \; -x cjxl "
   fi
   if [[ ! -v verbose ]]
-  then cmd+="--quiet "
+    then cmd+="--quiet "
   fi
   cmd+="--effort=9 --brotli_effort=11 --lossless_jpeg=1 {} {.}.jxl \; -x touch -r {} {.}.jxl "
   if [[ ! -v no_remove ]]
-  then cmd+=" \; -x rm"
+    then cmd+=" \; -x rm"
   fi
   eval $cmd
 }
