@@ -167,12 +167,13 @@ function to_jxl {
   # Also png and gif are potentially lossy when transcoded, more research is needed.
   # Other formats are rare and were not yet properly tested: -e exr -e ppm -e pfm -e pam -e pgx.
   cmd="fd "
-  if [[ -v extension ]]
-  then cmd+="-e $extension "
-  else cmd+="-e jpg -e jpeg "
-  fi
   if [[ -v all_extensions ]]
-  then cmd+="-e jpg -e jpeg -e png -e apng -e gif -e exr -e ppm -e pfm -e pam -e pgx "
+    then cmd+="-e jpg -e jpeg -e png -e apng -e gif -e exr -e ppm -e pfm -e pam -e pgx "
+    else
+      if [[ -v extension ]]
+        then cmd+="-e $extension "
+        else cmd+="-e jpg -e jpeg "
+      fi
   fi
   cmd+="--search-path='${@:-.}' "
   if [[ -v quiet ]]
