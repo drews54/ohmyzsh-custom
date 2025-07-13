@@ -116,3 +116,13 @@ fpath=(~/.zfunc $fpath)
 source $ZSH/oh-my-zsh.sh
 
 fastfetch
+
+if [[ "$(tty)" == "/dev/tty1" ]]
+then
+	btop -p 0
+	#startx -- -keeptty >~/.local/share/xorg_tty.log 2>&1
+else
+	# Auto-Warpify
+	[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ'
+	#eval "$(zellij setup --generate-auto-start zsh)"
+fi
