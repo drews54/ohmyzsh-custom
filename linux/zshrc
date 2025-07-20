@@ -119,8 +119,10 @@ fastfetch
 
 if [[ "$(tty)" == "/dev/tty1" ]]
 then
-	btop -p 0
-	#startx -- -keeptty >~/.local/share/xorg_tty.log 2>&1
+	case $MONIT in
+		btop) btop -p 0;;
+		xorg) startx -- -keeptty >~/.local/share/xorg_tty.log 2>&1;;
+	esac
 else
 	# Auto-Warpify
 	[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ'
