@@ -102,8 +102,6 @@ plugins=(
   fast-syntax-highlighting
   you-should-use
 )
-# Hotfix for zsh-fast-syntax-highlighting freezing on man and whatis
-function whatis() { if [[ -v THEFD ]]; then :; else command whatis "$@"; fi; }
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent identities id_ed25519 id_aur id_linux id_router id_windows id_wordpress
