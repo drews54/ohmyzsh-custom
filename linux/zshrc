@@ -121,7 +121,7 @@ if [[ "$(tty)" == "/dev/tty1" ]]
 then
 	case $MONIT in
 		btop) btop -p 0;;
-		xorg) startx -- -keeptty >~/.local/share/xorg_tty.log 2>&1;;
+		cage) cage -- edex-ui --no-sandbox;;
 	esac
 else
 	# eval "$(zellij setup --generate-auto-start zsh)"
