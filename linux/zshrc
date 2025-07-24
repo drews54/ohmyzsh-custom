@@ -99,7 +99,7 @@ plugins=(
 
 	zsh-autosuggestions
 	zsh-syntax-highlighting
- )
+)
 
 
 # User configuration
@@ -124,7 +124,7 @@ then
 		xorg) startx -- -keeptty >~/.local/share/xorg_tty.log 2>&1;;
 	esac
 else
+	# eval "$(zellij setup --generate-auto-start zsh)"
 	# Auto-Warpify
 	[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ'
-	#eval "$(zellij setup --generate-auto-start zsh)"
 fi
