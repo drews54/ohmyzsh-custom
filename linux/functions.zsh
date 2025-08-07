@@ -38,6 +38,8 @@ function sup
 	then
 		echo $REPLY
 		mprime -s
+		autoprimenet -s
+		tail $HOME/autoprimenet/gpuowl.log
 	else
 		echo $REPLY
 	fi
