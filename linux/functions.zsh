@@ -103,7 +103,7 @@ function to_hvc1 {
   shift $((OPTIND - 1))
 
   local ffmpeg_params
-  if   [[ $encoder == x265  ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -preset slow -tag:v hvc1 -map_metadata 0 "%s"'
+  if   [[ $encoder == x265  ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -crf 18 -preset slower -tag:v hvc1 -map_metadata 0 "%s"'
   elif [[ $encoder == nvenc ]]; then ffmpeg_params='-hide_banner -hwaccel cuda -hwaccel_output_format cuda -i "%s" -c:v hevc_nvenc -preset p7 -b_ref_mode disabled -tag:v hvc1 -map_metadata 0 "%s"'
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
   fi
