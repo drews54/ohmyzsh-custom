@@ -37,7 +37,7 @@ function sup
 	if read -qs "?View Prime95 stats? (y/N): "
 	then
 		echo $REPLY
-		sudo mprime -s -w/var/opt/mprime
+		mprime -s
 	else
 		echo $REPLY
 	fi
