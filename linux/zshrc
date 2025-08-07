@@ -119,6 +119,7 @@ fastfetch
 
 if [[ "$(tty)" == "/dev/tty1" ]]
 then
+	mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 $HOME/BadApple.mp4
 	case $MONIT in
 		btop) btop -p 0;;
 		edex) cage -- edex-ui --no-sandbox;;
