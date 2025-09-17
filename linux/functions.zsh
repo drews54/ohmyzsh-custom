@@ -16,12 +16,21 @@ function sup
 	echo "Hello again!"
 	echo "Uptime stats:"
 	uptime
-	echo "Failed systemd units:"
+	echo "Failed systemd system units:"
 	systemctl --failed
-	if read -qs "?Reset failed units? (y/N): "
+	if read -qs "?Reset failed system units? (y/N): "
 	then
 		echo $REPLY
-		sudo systemctl reset-failed
+		systemctl reset-failed
+	else
+		echo $REPLY
+	fi
+	echo "Failed systemd user units:"
+	systemctl --user --failed
+	if read -qs "?Reset failed user units? (y/N): "
+	then
+		echo $REPLY
+		systemctl --user reset-failed
 	else
 		echo $REPLY
 	fi
