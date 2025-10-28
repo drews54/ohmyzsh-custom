@@ -283,3 +283,18 @@ function iperf3_server {
   ssh server-public iperf3 -sD1 &&
   iperf3 -c drews.pro
 }
+function ssh() {
+    local host="$1"
+
+    # Check if the hostname ends with -z
+    if [[ "$host" == *-z ]]; then
+        # Strip the -z suffix to get the base hostname
+        local base_host="${host%-z}"
+
+        # Connect to the base host with zellij
+        command ssh -t "$base_host" zellij a
+    else
+        # For non -z hosts, just use regular ssh
+        command ssh "$@"
+    fi
+}
