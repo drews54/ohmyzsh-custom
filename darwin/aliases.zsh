@@ -32,6 +32,7 @@ alias rm='rm -I'
 alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 alias tjd='to_jxl ~/Downloads'
 alias tjx='to_jxl ~/Export'
+alias trid="trid -d $HOME/trid/triddefs.trd"
 alias watch=viddy
 alias yt-dlp_sb='yt-dlp --legacy-server-connect'
 alias yta='yt-dlp -t aac'
