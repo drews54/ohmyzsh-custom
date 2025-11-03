@@ -1,5 +1,4 @@
 export EDITOR=nvim
-export VISUAL=nvim
 export GPG_TTY=$(tty)
 export LC_ALL=ru_RU.UTF-8
 export MONO_GAC_PREFIX="/opt/homebrew"
