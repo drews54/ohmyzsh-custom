@@ -119,7 +119,11 @@ fastfetch
 
 if [[ "$(tty)" == "/dev/tty1" ]]
 then
-	mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 $HOME/BadApple.mp4
+	case $VIDEO in
+		apple) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 $HOME/media/Other/Videos/BadApple.mp4;;
+		macos) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "$HOME/media/Other/Videos/The 2020-2021 macOS Startup Sound [Wj7J2W448Xw].webm";;
+		win95) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "$HOME/media/Other/Videos/(HQ) Windows 95 Startup Sound - Brian Eno - The Microsoft Sound [I3Ak5VgyEoc].webm";;
+	esac
 	case $MONIT in
 		btop) btop -p 0;;
 		edex) cage -- edex-ui --no-sandbox;;
