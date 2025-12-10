@@ -95,6 +95,7 @@ plugins=(
   sudo
   systemadmin
   tailscale
+  uv
   vscode
   web-search
   zoxide

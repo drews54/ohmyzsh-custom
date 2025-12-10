@@ -94,6 +94,7 @@ plugins=(
 	systemd
 	tailscale
 	timer
+	uv
 	virtualenv
 	zoxide
 
