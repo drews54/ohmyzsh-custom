@@ -1,8 +1,10 @@
 if [[ -n $SSH_CONNECTION ]]
 then
 	alias ls=lsd
+	alias lst='ls --tree'
 else
 	alias ls='lsd --icon=never'
+	alias lst='ls --tree'
 fi
 alias autoprimenet='autoprimenet -w$HOME/autoprimenet'
 alias cat='bat -p'
