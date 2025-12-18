@@ -101,6 +101,7 @@ plugins=(
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 )
+[ $TERM != "xterm-kitty" ] && [ $TERM != "linux" ] && plugins+=(bgnotify)
 
 
 # User configuration
