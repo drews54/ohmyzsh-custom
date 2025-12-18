@@ -11,6 +11,7 @@ alias gdl=gallery-dl
 alias gdlb='gallery-dl --cookies-from-browser brave'
 alias gdlbd='gallery-dl --cookies-from-browser brave -d.'
 alias gdlbD='gallery-dl --cookies-from-browser brave -D.'
+alias gdle='gallery-dl -d ~/Export/gallery-dl'
 alias gdlo='gallery-dl --cookies-from-browser opera'
 alias gdlod='gallery-dl --cookies-from-browser opera -d.'
 alias gdloD='gallery-dl --cookies-from-browser opera -D.'
