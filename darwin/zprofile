@@ -9,6 +9,7 @@ PATH=$(printf "%s"\
   "$(brew --prefix openjdk)/bin:"\
   "/usr/local/MacGPG2/bin:"\
   "$PATH")
+  # "/opt/homebrew/share/john:"\
 LDFLAGS=$(printf "%s"\
   "-L/opt/homebrew/opt/curl/lib"\
   "$LDFLAGS")
