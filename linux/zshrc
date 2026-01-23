@@ -123,11 +123,11 @@ if [[ "$(tty)" == "/dev/tty1" ]]
 then
 	case $VIDEO in
 		apple) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 "media/Other/Videos/BadApple.mp4";;
-		macos) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "media/Other/Videos/The 2020-2021 macOS Startup Sound [Wj7J2W448Xw].webm";;
-		mgs1i) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "media/Other/Videos/Metal Gear Solid Konami Intro [NImW-Rs8eK8].mp4";;
-		ps1ss) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "media/Other/Videos/Ps1 startup sound [BOPViekdacQ].webm";;
-		ps2ss) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "media/Other/Videos/PlayStation 2 Startup HD [YWWjTYlSp2M].webm";;
-		win95) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame "media/Other/Videos/(HQ) Windows 95 Startup Sound - Brian Eno - The Microsoft Sound [I3Ak5VgyEoc].webm";;
+		macos) cage -- mpv "media/Other/Videos/The 2020-2021 macOS Startup Sound [Wj7J2W448Xw].webm";;
+		mgs1i) cage -- mpv "media/Other/Videos/Metal Gear Solid Konami Intro [NImW-Rs8eK8].mp4";;
+		ps1ss) cage -- mpv "media/Other/Videos/Ps1 startup sound [BOPViekdacQ].webm";;
+		ps2ss) cage -- mpv "media/Other/Videos/PlayStation 2 Startup HD [YWWjTYlSp2M].webm";;
+		win95) cage -- mpv "media/Other/Videos/(HQ) Windows 95 Startup Sound - Brian Eno - The Microsoft Sound [I3Ak5VgyEoc].webm";;
 	esac
 	case $MONIT in
 		btop) btop -p 0;;
