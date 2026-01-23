@@ -23,4 +23,3 @@ alias sv='sudo vim'
 alias v=vim
 alias watch=viddy
 alias webm_to_hvc1='to_hvc1 -fa *.webm && ntfy pub server_notifications Videos converted successfully'
-alias yt-dlp='yt-dlp --downloader aria2c'
