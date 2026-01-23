@@ -10,6 +10,7 @@ function upd
 	tldr --update
 	uv tool upgrade --all
 	sudo updatedb
+	echo -e "\a"
 }
 function sup
 {
