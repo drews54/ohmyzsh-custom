@@ -6,3 +6,6 @@ export HISTIGNORE='*sudo -S*'
 [[ -v XDG_DATA_DIRS ]] && export XDG_DATA_DIRS="/opt/homebrew/share:$XDG_DATA_DIRS" || export XDG_DATA_DIRS="/opt/homebrew/share"
 export HOMEBREW_NO_ENV_HINTS=true
 export HOMEBREW_UPGRADE_GREEDY=true
+export MANPAGER='nvim +Man!'
+export PAGER=nvimpager
+export BAT_PAGER=builtin
