@@ -9,14 +9,17 @@ PATH=$(printf "%s"\
   "$(brew --prefix openjdk)/bin:"\
   "/usr/local/MacGPG2/bin:"\
   "/opt/homebrew/opt/ffmpeg-full/bin:"\
+  "/opt/homebrew/opt/imagemagick-full/bin:"\
   "$PATH")
   # "/opt/homebrew/share/john:"\
 LDFLAGS=$(printf "%s"\
   "-L/opt/homebrew/opt/curl/lib "\
   "-L/opt/homebrew/opt/ffmpeg-full/lib "\
+  "-L/opt/homebrew/opt/imagemagick-full/lib "\
   "$LDFLAGS")
 CPPFLAGS=$(printf "%s"\
   "-I/opt/homebrew/opt/curl/include "\
   "-I/opt/homebrew/opt/openjdk/include "\
   "-I/opt/homebrew/opt/ffmpeg-full/include "\
+  "-I/opt/homebrew/opt/imagemagick-full/include "\
   "$CPPFLAGS")
