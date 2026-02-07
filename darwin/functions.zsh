@@ -95,20 +95,20 @@ function to_hvc1 {
 }
 # Compresses PDF files using GhostScript. Usage: compresspdf [input file] [output file] [screen*|ebook|printer|prepress]
 function compresspdf {
-    gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/${3:-"screen"} -dCompatibilityLevel=1.4 -sOutputFile="$2" "$1"
+  gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/${3:-"screen"} -dCompatibilityLevel=1.4 -sOutputFile="$2" "$1"
 }
 # Finds media files in a tree below given directory that were modified on the current day and month of any year.
 function find_today_files {
-    today=$(date +%j)
-    find ${@:-.} -type f \! -name .DS_Store -print0|\
-      while IFS= read -r -d '' file
-      do
-        file_day=$(date -r "$file" +%j)
-        if [[ "$file_day" == "$today" ]]
-        then
-          echo "'$file'"
-        fi
-      done
+  today=$(date +%j)
+  find ${@:-.} -type f \! -name .DS_Store -print0|\
+    while IFS= read -r -d '' file
+    do
+      file_day=$(date -r "$file" +%j)
+      if [[ "$file_day" == "$today" ]]
+      then
+        echo "'$file'"
+      fi
+    done
 }
 # Opens files found by the find_today_files function (see above).
 function open_today_files {
@@ -284,17 +284,17 @@ function iperf3_server {
   iperf3 -c drews.pro
 }
 function ssh() {
-    local host="$1"
+  local host="$1"
 
-    # Check if the hostname ends with -z
-    if [[ "$host" == *-z ]]; then
-        # Strip the -z suffix to get the base hostname
-        local base_host="${host%-z}"
+  # Check if the hostname ends with -z
+  if [[ "$host" == *-z ]]; then
+    # Strip the -z suffix to get the base hostname
+    local base_host="${host%-z}"
 
-        # Connect to the base host with zellij
-        command ssh -t "$base_host" zellij a
-    else
-        # For non -z hosts, just use regular ssh
-        command ssh "$@"
-    fi
+    # Connect to the base host with zellij
+    command ssh -t "$base_host" zellij a
+  else
+    # For non -z hosts, just use regular ssh
+    command ssh "$@"
+  fi
 }
