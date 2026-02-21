@@ -7,5 +7,3 @@ export HISTIGNORE='*sudo -S*'
 export HOMEBREW_NO_ENV_HINTS=true
 export HOMEBREW_UPGRADE_GREEDY=true
 export MANPAGER='nvim +Man!'
-export PAGER=nvimpager
-export BAT_PAGER=builtin
