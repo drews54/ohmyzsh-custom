@@ -133,8 +133,4 @@ then
 		btop) btop -p 0;;
 		xdex) cage -- git/xdex-ui/dist/xDEX-UI-Linux-x86_64.AppImage --no-sandbox;;
 	esac
-else
-	# eval "$(zellij setup --generate-auto-start zsh)"
-	# Auto-Warpify
-	[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ'
 fi
