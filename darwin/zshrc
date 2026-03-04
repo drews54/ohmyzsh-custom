@@ -79,6 +79,8 @@ plugins=(
   colored-man-pages
   colorize
   common-aliases
+  docker
+  docker-compose
   fzf
   git
   git-commit
