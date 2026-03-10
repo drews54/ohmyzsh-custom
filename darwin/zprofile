@@ -8,8 +8,6 @@ PATH=$(printf "%s"\
   "$(brew --prefix curl)/bin:"\
   "$(brew --prefix openjdk)/bin:"\
   "/usr/local/MacGPG2/bin:"\
-  "/opt/homebrew/opt/ffmpeg-full/bin:"\
-  "/opt/homebrew/opt/imagemagick-full/bin:"\
   "$PATH")
   # "/opt/homebrew/share/john:"\
 LDFLAGS=$(printf "%s"\
