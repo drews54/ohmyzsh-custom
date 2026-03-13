@@ -112,22 +112,37 @@ function to_hvc1 {
 
   shift $((OPTIND - 1))
 
-  local ffmpeg_params
-  if   [[ $encoder == x265  ]]; then ffmpeg_params='-hide_banner -i "%s" -c:v libx265 -crf 18 -preset slower -tag:v hvc1 -map_metadata 0 "%s"'
-  elif [[ $encoder == nvenc ]]; then ffmpeg_params='-hide_banner -hwaccel cuda -hwaccel_output_format cuda -i "%s" -c:v hevc_nvenc -preset p7 -b_ref_mode disabled -tag:v hvc1 -map_metadata 0 "%s"'
+  local -a base_ffmpeg_params
+  if   [[ $encoder == x265  ]]; then base_ffmpeg_params=(-hide_banner -i)
+  elif [[ $encoder == nvenc ]]; then base_ffmpeg_params=(-hide_banner -hwaccel cuda -hwaccel_output_format cuda -i)
   else echo "Somehow $encoder got past validation to the converter..." >&2; return 1
   fi
-  [[ ! -v no_copy_audio ]] && ffmpeg_params=$(echo $ffmpeg_params | sed 's/\("%s"\)\([^"%s"]*\)$/-c:a copy \1\2/')
 
   for video in "$@"
   do
+    local -a ffmpeg_params=("${base_ffmpeg_params[@]}")
     if is_hvc1 -q "$video"
     then
       echo "Skipping $video"
       continue
     fi
 
-    printf $ffmpeg_params $video ${video%.*}.hvc1.mp4 | xargs -o ffmpeg
+    ffmpeg_params+=("$video")
+    if [[ $encoder == x265 ]]
+    then
+      ffmpeg_params+=(-c:v libx265 -crf 18 -preset slower)
+    elif [[ $encoder == nvenc ]]
+    then
+      ffmpeg_params+=(-c:v hevc_nvenc -preset p7 -b_ref_mode disabled)
+    else
+      echo "$encoder is not a supported encoder" >&2
+      return 1
+    fi
+    ffmpeg_params+=(-tag:v hvc1)
+    [[ ! -v no_copy_audio ]] && ffmpeg_params+=(-c:a copy)
+    ffmpeg_params+=(-map_metadata 0 "${video%.*}.hvc1.mp4")
+
+    ffmpeg "${ffmpeg_params[@]}"
 
     if [[ $? == 0 ]]
     then
