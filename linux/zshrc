@@ -25,7 +25,7 @@ ZSH_THEME="ys"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -101,8 +101,7 @@ plugins=(
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 )
-[ $TERM != "xterm-kitty" ] && [ $TERM != "linux" ] && plugins+=(bgnotify)
-
+[[ $TERM != "xterm-kitty" ]] && [[ $TERM != "linux" ]] && plugins+=(bgnotify)
 
 # User configuration
 
@@ -110,7 +109,7 @@ plugins=(
 export GPG_TTY=$(tty) && gpg-connect-agent updatestartuptty /bye
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 fi
 
 fpath=(~/.zfunc $fpath)
@@ -119,18 +118,17 @@ source $ZSH/oh-my-zsh.sh
 
 fastfetch
 
-if [[ "$(tty)" == "/dev/tty1" ]]
-then
+if [[ "$(tty)" == "/dev/tty1" ]]; then
 	case $VIDEO in
-		apple) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 "media/Other/Videos/BadApple.mp4";;
-		macos) cage -- mpv "media/Other/Videos/The 2020-2021 macOS Startup Sound [Wj7J2W448Xw].webm";;
-		mgs1i) cage -- mpv "media/Other/Videos/Metal Gear Solid Konami Intro [NImW-Rs8eK8].mp4";;
-		ps1ss) cage -- mpv "media/Other/Videos/Ps1 startup sound [BOPViekdacQ].webm";;
-		ps2ss) cage -- mpv "media/Other/Videos/PlayStation 2 Startup HD [YWWjTYlSp2M].webm";;
-		win95) cage -- mpv "media/Other/Videos/(HQ) Windows 95 Startup Sound - Brian Eno - The Microsoft Sound [I3Ak5VgyEoc].webm";;
+	apple) mpv --vo=tct --vo-tct-256=yes --vo-tct-buffering=frame --volume=30 "media/Other/Videos/BadApple.mp4" ;;
+	macos) cage -- mpv "media/Other/Videos/The 2020-2021 macOS Startup Sound [Wj7J2W448Xw].webm" ;;
+	mgs1i) cage -- mpv "media/Other/Videos/Metal Gear Solid Konami Intro [NImW-Rs8eK8].mp4" ;;
+	ps1ss) cage -- mpv "media/Other/Videos/Ps1 startup sound [BOPViekdacQ].webm" ;;
+	ps2ss) cage -- mpv "media/Other/Videos/PlayStation 2 Startup HD [YWWjTYlSp2M].webm" ;;
+	win95) cage -- mpv "media/Other/Videos/(HQ) Windows 95 Startup Sound - Brian Eno - The Microsoft Sound [I3Ak5VgyEoc].webm" ;;
 	esac
 	case $MONIT in
-		btop) btop -p 0;;
-		xdex) cage -- git/xdex-ui/dist/xDEX-UI-Linux-x86_64.AppImage --no-sandbox;;
+	btop) btop -p 0 ;;
+	xdex) cage -- git/xdex-ui/dist/xDEX-UI-Linux-x86_64.AppImage --no-sandbox ;;
 	esac
 fi
