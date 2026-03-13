@@ -25,7 +25,7 @@ HYPHEN_INSENSITIVE="true"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -103,7 +103,7 @@ plugins=(
 
   fast-syntax-highlighting
 )
-[ $TERM != "xterm-kitty" ] && plugins+=(bgnotify)
+[[ $TERM != "xterm-kitty" ]] && plugins+=(bgnotify)
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent identities id_ed25519 id_aur id_linux id_router id_windows id_wordpress
@@ -116,6 +116,8 @@ source $ZSH/oh-my-zsh.sh
 if type brew &>/dev/null; then
   fpath+=$(brew --prefix)/share/zsh-completions
 fi
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
+fpath+=~/.zfunc
+autoload -Uz compinit
+compinit
 
 fastfetch
