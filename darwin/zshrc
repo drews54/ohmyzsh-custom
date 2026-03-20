@@ -103,7 +103,6 @@ plugins=(
 
   fast-syntax-highlighting
 )
-[[ $TERM != "xterm-kitty" ]] && plugins+=(bgnotify)
 
 zstyle :omz:plugins:ssh-agent agent-forwarding yes
 zstyle :omz:plugins:ssh-agent identities id_ed25519 id_aur id_linux id_router id_windows id_wordpress
