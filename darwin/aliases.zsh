@@ -7,6 +7,7 @@ alias cpac="grep antizapret $HOME/pac | tr -d '\n' | clipcopy"
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffplay='ffplay -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
+alias flux="cd $HOME/Export/flux2 && ollama run x/flux2-klein:9b-bf16"
 alias gdl=gallery-dl
 alias gdlb='gallery-dl --cookies-from-browser brave'
 alias gdlbd='gallery-dl --cookies-from-browser brave -d.'
